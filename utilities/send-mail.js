@@ -59,7 +59,9 @@ exports.notice = (comment) => {
         try{
           if (process.env.QMSG_KEY != null) {
                       console.log('开始QQ提醒')
-                      let msg = "msg="+'博客有新消息啦!' + NICK + "他/她说:" + COMMENT
+                      let msg = {
+				        "msg": "博客有新消息啦!" + NICK + "说" + COMMENT
+			           }
                       axios({
                           method: 'post',
                           url: `https://qmsg.zendee.cn/send/${process.env.QMSG_KEY}`,
