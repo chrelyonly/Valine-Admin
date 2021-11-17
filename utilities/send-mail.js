@@ -1,5 +1,6 @@
 'use strict';
 const nodemailer = require('nodemailer');
+const axios = require('axios')
 
 let config = {
     auth: {
@@ -53,6 +54,34 @@ exports.notice = (comment) => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log(error);
+        }
+        console.log('准备提醒')
+        try{
+          if (process.env.QMSG_KEY != null) {
+                      console.log('开始QQ提醒')
+                      let msg = "msg="+'博客有新消息啦!' + NICK + "他/她说:" + COMMENT
+                      axios({
+                          method: 'post',
+                          url: `https://qmsg.zendee.cn/send/${process.env.QMSG_KEY}`,
+                          data: "msg=博客有新评论啦!",
+                          headers: {
+                              'Content-type': 'application/x-www-form-urlencoded'
+                          }
+                      })
+                      .then(function (response) {
+                          if (response.status === 200 && response.data.errmsg === 'success') {
+                              console.log('已QQ提醒站长')
+                          } else {
+                              console.warn('qq提醒失败:', response.data)
+                          }
+                      })
+                      .catch(function (error) {
+                          console.error('提醒失败:', error.message)
+                       })
+                  }
+        }catch(e){
+          console.log(e)
+          //TODO handle the exception
         }
         console.log('博主通知邮件成功发送: %s', info.response);
         comment.set('isNotified', true);
