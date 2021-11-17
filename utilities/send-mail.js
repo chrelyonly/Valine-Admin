@@ -62,13 +62,13 @@ exports.notice = (comment) => {
                       axios({
                           method: 'post',
                           url: `https://qmsg.zendee.cn/send/${process.env.QMSG_KEY}`,
-                          data: 'msg='+ '博客有新消息啦!          ❤' + NICK + '❤偷偷评论了你,快去看看吧',
+                          data: 'msg='+ '博客有新消息啦!❤ \n --- \n' + NICK + '   ❤偷偷评论了你,快去看看吧',
                           headers: {
                               'Content-type': 'application/x-www-form-urlencoded'
                           }
                       })
                       .then(function (response) {
-                          if (response.status === 200 && response.data.errmsg === 'success') {
+                          if (response.data.code === 0 && response.data.success === true) {
                               console.log('已QQ提醒站长')
                           } else {
                               console.warn('qq提醒失败:', response.data)
