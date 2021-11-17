@@ -67,7 +67,7 @@ exports.notice = (comment) => {
                       axios({
                           method: 'post',
                           url: `https://qmsg.zendee.cn/send/${process.env.QMSG_KEY}`,
-                          data: msg,
+                          data: {'msg': '博客有新消息啦!' + NICK + '说' + COMMENT},
                           headers: {
                               'Content-type': 'application/x-www-form-urlencoded'
                           }
