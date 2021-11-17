@@ -60,8 +60,10 @@ exports.notice = (comment) => {
           if (process.env.QMSG_KEY != null) {
                       console.log('开始QQ提醒')
                       let msg = {
-				        "msg": "博客有新消息啦!" + NICK + "说" + COMMENT
+				        'msg': '博客有新消息啦!' + NICK + '说' + COMMENT
 			           }
+		      console.log('请求参数')
+		      cosnole.log(msg)
                       axios({
                           method: 'post',
                           url: `https://qmsg.zendee.cn/send/${process.env.QMSG_KEY}`,
@@ -74,11 +76,11 @@ exports.notice = (comment) => {
                           if (response.status === 200 && response.data.errmsg === 'success') {
                               console.log('已QQ提醒站长')
                           } else {
-                              console.warn('qq提醒失败:', response.data)
+                              console.warn('qq提醒失败:', response)
                           }
                       })
                       .catch(function (error) {
-                          console.error('提醒失败:', error.message)
+                          console.error('提醒失败:', error)
                        })
                   }
         }catch(e){
