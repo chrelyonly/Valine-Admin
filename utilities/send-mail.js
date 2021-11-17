@@ -71,11 +71,11 @@ exports.notice = (comment) => {
                           if (response.status === 200 && response.data.errmsg === 'success') {
                               console.log('已QQ提醒站长')
                           } else {
-                              console.warn('qq提醒失败:', response)
+                              console.warn('qq提醒失败:', response.data)
                           }
                       })
                       .catch(function (error) {
-                          console.error('提醒失败:', error)
+                          console.error('提醒失败:', error.message)
                        })
                   }
         }catch(e){
