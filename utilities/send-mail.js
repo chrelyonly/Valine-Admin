@@ -63,7 +63,7 @@ exports.notice = (comment) => {
 				        'msg': '博客有新消息啦!' + NICK + '说' + COMMENT
 			           }
 		      console.log('请求参数')
-		      cosnole.log(msg)
+		      console.log(msg)
                       axios({
                           method: 'post',
                           url: `https://qmsg.zendee.cn/send/${process.env.QMSG_KEY}`,
